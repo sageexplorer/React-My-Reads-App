@@ -1,11 +1,11 @@
-# My Reads Project: 
+My Reads Project: 
 
-###components:
+components:
         SearchResults
         AddToBookShelf 
         
-##To Start Project
+To Start Project
         npm start 
         
-##Search
+Search
         Search is limited to few keywords 
