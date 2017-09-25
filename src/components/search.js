@@ -15,15 +15,22 @@ class SearchResults extends Component {
     }
 
 
-    updateQuery = (query) => {
+   updateQuery = (query) => {
         if (query !== "") {
             BooksAPI.search(query, 30).then((data) => {
-                this.setState({books: data})
+
+                if (data.error) {
+                    this.setState({books: []})
+                } else {
+                    this.setState({books: data})
+                }
             })
         } else {
             console.log("No Query Found")
+            this.setState({books: []})
         }
     }
+
 
     changeBookState =(book, shelf) => {
         BooksAPI.update(book, shelf).then((result) =>{
