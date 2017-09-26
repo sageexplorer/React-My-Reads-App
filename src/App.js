@@ -21,7 +21,7 @@ class BooksApp extends React.Component {
                 )}/>
 
 
-                <Route path exact='/' render={() => (
+                <Route exact path='/' render={() => (
 
 
                     <div>
