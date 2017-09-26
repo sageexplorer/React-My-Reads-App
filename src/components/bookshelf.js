@@ -70,7 +70,7 @@ class AddToBookShelf extends Component {
                                         }}></div>
                                         <div className="book-shelf-changer">
                                             <select
-                                                value={ this.shelf}
+                                                value={ book.shelf}
                                                 onChange={e => this.changeBookState(book, e.target.value)}
                                             >
 
