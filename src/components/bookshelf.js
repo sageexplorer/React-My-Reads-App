@@ -29,12 +29,9 @@ class AddToBookShelf extends Component {
     }
 
 
-
      componentDidMount() {
         this.updateBookShelf()
      }
-
-
 
 
 
@@ -44,10 +41,6 @@ class AddToBookShelf extends Component {
 
         })
     }
-
-
-
-
 
 
 
