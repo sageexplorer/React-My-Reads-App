@@ -8,34 +8,48 @@ import '../App.css'
 class AddToBookShelf extends Component {
 
     state = {
-        bookShelf: []
+        bookShelf: [],
+        bookChanged: false,
+        shelf:[]
 
     }
 
     //Book type, and title are sent in the props, and are required
     static propTypes = {
-        type: PropTypes.string.isRequired,
+        type:  PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
+        shelf: PropTypes.string.isRequired
     }
 
 
-    componentDidMount() {
+    updateBookShelf = () => {
         BooksAPI.getAll().then((result) => {
-            console.log(result);
+            console.log("My get all results are",result)
             this.setState({bookShelf: result})
         })
     }
 
 
+
+     componentDidMount() {
+        this.updateBookShelf()
+     }
+
+
+
+
+
     changeBookState = (book, shelf) => {
         BooksAPI.update(book, shelf).then((result) => {
-            console.log(result);
-            this.setState({myShelf: result})
-            location.reload();
-
+            this.updateBookShelf()
 
         })
     }
+
+
+
+
+
 
 
     render() {
@@ -70,7 +84,7 @@ class AddToBookShelf extends Component {
                                         }}></div>
                                         <div className="book-shelf-changer">
                                             <select
-                                                value={ book.shelf}
+                                                value={book.shelf}
                                                 onChange={e => this.changeBookState(book, e.target.value)}
                                             >
 
