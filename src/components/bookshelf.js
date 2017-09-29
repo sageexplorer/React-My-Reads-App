@@ -18,7 +18,6 @@ class AddToBookShelf extends Component {
     static propTypes = {
         type:  PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        shelf: PropTypes.string.isRequired
     }
 
 
