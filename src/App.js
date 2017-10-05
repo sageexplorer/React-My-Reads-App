@@ -1,39 +1,65 @@
-import React from 'react'
+import React, {Component} from 'react'
+import {Route} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import {Link} from 'react-router-dom'
-import {Route} from 'react-router-dom'
-import SearchResults from "./components/search";
-import AddToBookShelf from "./components/bookshelf";
 
-class BooksApp extends React.Component {
+
+//Components
+import SearchPage from './components/SearchPage'
+import BookList from './components/BookList'
+
+export default class BooksApp extends Component {
+
+    state = {
+        bookShelf: []
+    }
+
+
+    //This  gets the book details
+    getDetails = () => {
+        BooksAPI.getAll().then((result) => {
+            this.setState({bookShelf: result})
+
+        })
+    }
+
+
+    componentDidMount() {
+        this.getDetails()
+    }
+
+
+    changeBookState = (book, shelf) => {
+        BooksAPI.update(book, shelf).then(() => {
+            this.getDetails()
+
+        })
+    }
 
 
     render() {
         return (
             <div className="app">
-            
-                <Route path='/search' render={() => (
-                    <SearchResults  />
-                )}/>
+                <Route
+                    exact path="/search"
+                    render={() => (
+                        <SearchPage
+                            books={this.state.bookShelf}
+                            onShelfChange={this.changeBookState}
+                        />
+                    )}
+                />
 
-                <Route exact path='/' render={() => (
-                    <div>
-                        <div className="list-books-title">
-                            <h2>My Reads</h2>
-                        </div>
-                        <AddToBookShelf type="currentlyReading" title="Currently Reading"/>
-
-                        <AddToBookShelf type="wantToRead" title="Want To Read"/>
-
-                        <AddToBookShelf type="read" title="Read"/>
-                    </div>
-                )}/>
+                <Route
+                    exact path="/"
+                    render={() => (
+                        <BookList
+                            books={this.state.bookShelf}
+                            onShelfChange={this.changeBookState}
+                        />
+                    )}
+                />
             </div>
         )
     }
 }
-
-export default BooksApp
-
-
