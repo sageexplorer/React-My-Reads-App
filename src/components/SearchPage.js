@@ -13,11 +13,12 @@ class SearchResults extends Component {
     state = {
         query: "",
         bookShelf: [],
+
     }
 
 
     static propTypes = {
-        onUpdateShelf: PropTypes.func,
+        onShelfChange: PropTypes.func,
         books: PropTypes.array.isRequired
     }
 
@@ -48,7 +49,6 @@ class SearchResults extends Component {
     }
 
 
-
     render() {
 
         return (
@@ -75,11 +75,12 @@ class SearchResults extends Component {
                     <ol className="books-grid">
 
                         {this.state.bookShelf.map((book, index) => (
-                            <Book book={book} key={index} onUpdateShelf={(shelf) => {
-                                this.props.onShelfChange(book, shelf)
-
-                            }}/>))}
-
+                            <Book book={book}
+                                  key={index}
+                                  shelf={book.shelf}
+                                  onUpdateShelf={(shelf) => {
+                                    this.props.onShelfChange(book, shelf)
+                                  }}/>))}
 
                     </ol>
                 </div>
