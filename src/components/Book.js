@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import { PropTypes }  from 'prop-types'
+import * as BooksAPI from '../BooksAPI'
 
 
 class Book extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
-    onUpdateShelf: PropTypes.func.isRequired
+    onUpdateShelf: PropTypes.func.isRequired,
+
   }
 
   changeShelf = (event) => {
     this.props.onUpdateShelf(event.target.value)
+    this.props.book.shelf =  event.target.value
+
   }
 
 
 
-  render(){
+    render(){
     return (
       <li>
         <div className="book">
