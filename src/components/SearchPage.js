@@ -3,6 +3,7 @@ import * as BooksAPI from '../BooksAPI';
 import {Link} from "react-router-dom";
 import {PropTypes} from 'prop-types'
 import Book from './Book'
+import {debounce} from 'throttle-debounce';
 
 import 'request'
 
@@ -22,7 +23,7 @@ class SearchResults extends Component {
         books: PropTypes.array.isRequired
     }
 
-    updateQuery = (query) => {
+    updateQuery = debounce(800, (query) => {
         if (query !== "") {
             BooksAPI.search(query, 30).then((data) => {
 
@@ -46,7 +47,7 @@ class SearchResults extends Component {
         } else {
             this.setState({bookShelf: []})
         }
-    }
+    })
 
 
     render() {
